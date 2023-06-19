@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>AdminLTE Tickers</title>
+
+  <!-- Agrega los enlaces a los archivos de AdminLTE -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/css/adminlte.min.css">
+</head>
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <!-- Aquí está el código HTML para el diseño de la página de AdminLTE -->
+
+    <div class="content-wrapper">
+      <section class="content">
+        <div class="container-fluid">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Tabla de Tickers</h3>
+            </div>
+            <div class="card-body">
+              <table id="tickers-table" class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Empresa</th>
+                    <th>Ticker</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Aquí se agregarán las filas de la tabla con JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </div>
+
+  <!-- Agrega los scripts de AdminLTE y cualquier otro script necesario -->
+  <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/js/adminlte.min.js"></script>
+
+  <script>
+    // Aquí agregarás el código JavaScript para cargar los datos y construir la tabla
+    fetch('/tickers')
+      .then(response => response.json())
+      .then(data => {
+        const tableBody = document.querySelector('#tickers-table tbody');
+        data.forEach(ticker => {
+          const row = document.createElement('tr');
+          const empresaCell = document.createElement('td');
+          empresaCell.textContent = ticker.Empresa;
+          const tickerCell = document.createElement('td');
+          tickerCell.textContent = ticker.Ticker;
+          row.appendChild(empresaCell);
+          row.appendChild(tickerCell);
+          tableBody.appendChild(row);
+        });
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  </script>
+</body>
+</html>
